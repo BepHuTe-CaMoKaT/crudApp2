@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SkillRepository {
-    String path = "C:/Users/Никита/IdeaProjects/crudApp/src/main/resources/skills.txt";
+    String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/resources/skills.txt";
 
     public Skill getById(Long id) {
         try {
@@ -20,7 +20,7 @@ public class SkillRepository {
             }
             return null;
         } catch (Exception e) {
-            throw new RuntimeException("Error is occurred in readFromFile" + e.getMessage());
+            throw new RuntimeException("Error is occurred in readFromFile " + e.getMessage());
         }
 
     }
@@ -41,8 +41,7 @@ public class SkillRepository {
         } catch (Exception e) {
             throw new RuntimeException("Error is occurred in readFromFile" + e.getMessage());
         }
-    }// буфер не закрывается(вроде)
-
+    }
     private String writeToFile(String text, boolean appendOrOverwriteTheFile) {
         try (FileWriter writer = new FileWriter(path, appendOrOverwriteTheFile)) {
 
@@ -52,7 +51,10 @@ public class SkillRepository {
         }
         return null;
     }
+    private long idGenerator() {
 
+        return 0;
+    }
     public List<Skill> getAll() {
         List<Skill> skillList = new ArrayList<>();
         try {
@@ -66,11 +68,6 @@ public class SkillRepository {
         }
         return skillList;
     }
-
-    public long idGenerator() {
-        return 0;
-    }
-
     public Skill save(Skill skill) {
         List<Skill> skillList = new ArrayList<>();
         try {
@@ -107,13 +104,13 @@ public class SkillRepository {
             }
 
         } catch (Exception e) {
-            throw new RuntimeException("Error is occurred in save method" + e.getMessage());
+            throw new RuntimeException("Error is occurred in update method " + e.getMessage());
         }
         return null;
     }
 
     public boolean deleteById(Long id) {
-        List<Skill> skillList = new ArrayList<>();
+        List<Skill> skillList = new ArrayList<Skill>();
 
         try {
             String[] skillsAllRecords = readFromFile(path).split("/");
@@ -123,14 +120,15 @@ public class SkillRepository {
             }
             skillList.removeIf(skill -> skill.getId() == id);
 
-            Skill[] skills = (Skill[]) skillList.toArray();
+            Skill[] skills = new Skill[skillList.size()];
+            skills = skillList.toArray(skills);
             for(Skill o:skills){
-                writeToFile(o.getId()+o.getName(),false);
+                writeToFile(o.getId()+o.getName(),true);
 
             }
 
         } catch (Exception e) {
-            throw new RuntimeException("Error is occurred in delete method" + e.getMessage());
+            throw new RuntimeException("Error is occurred in delete method " + e.getMessage());
         }
         return false;
     }

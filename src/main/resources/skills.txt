@@ -1,5 +1,4 @@
-0,SQL/
-1,Go/
-2,C++/
-3,Java/
-0,Pascal/
+0,java/
+1,go/
+2,maven/
+3,sql/0,Pascal/0java2maven3sql0Pascal
