@@ -1,8 +1,8 @@
 package main;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SkillRepository {
     String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/resources/skills.txt";
@@ -49,15 +49,6 @@ public class SkillRepository {
             e.printStackTrace();
         }
     }
-    private long idGenerator() {
-
-        try {
-            String[] skillsAllRecords = readFromFile(path).split("/");
-            return skillsAllRecords.length + 1;
-        } catch (Exception e) {
-            throw new RuntimeException("Error is occurred in idGenerator method " + e.getMessage());
-        }
-    }
     public List<Skill> getAll() {
         List<Skill> skillList = new ArrayList<>();
         try {
@@ -71,6 +62,16 @@ public class SkillRepository {
         }
         return skillList;
     }
+    private long idGenerator() {
+
+        try {
+            String[] skillsAllRecords = readFromFile(path).split("/");
+            return skillsAllRecords.length + 1;
+        } catch (Exception e) {
+            throw new RuntimeException("Error is occurred in idGenerator method " + e.getMessage());
+        }
+    }
+
     public Skill save(Skill skill) {
         List<Skill> skillList = new ArrayList<>();
         try {
@@ -101,12 +102,13 @@ public class SkillRepository {
 
             skillList.removeIf(skill1 -> skill1.getId()==skill.getId());
             skillList.add(skill);
+            List<Skill> skillList1 = (skillList.stream().sorted(Comparator.comparingLong(Skill::getId)).collect(Collectors.toList()));
 
 
-            Skill[] skills = new Skill[skillList.size()];
-            skills = skillList.toArray(skills);
+
+
             writeToFile("", false);
-            for (Skill o : skills) {
+            for (Skill o : skillList1) {
                 writeToFile(o.getId() + "," + o.getName() + "/\n", true);
             }
 
