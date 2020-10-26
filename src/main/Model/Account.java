@@ -2,12 +2,12 @@ package main.Model;
 
 public class Account {
     private long id;
-    private String DevName;
+    private String devName;
     private AccountStatus status;
 
     public Account(long id, String devName, AccountStatus status) {
         this.id = id;
-        DevName = devName;
+        this.devName = devName;
         this.status = status;
     }
 
@@ -20,7 +20,7 @@ public class Account {
     }
 
     public String getDevName() {
-        return DevName;
+        return devName;
     }
 
     public AccountStatus getStatus() {
@@ -35,7 +35,7 @@ public class Account {
     public String toString() {
         return "{" +
                 "id=" + id +
-                ", DevName='" + DevName + '\'' +
+                ", DevName='" + devName + '\'' +
                 ", status=" + status +
                 '}';
     }

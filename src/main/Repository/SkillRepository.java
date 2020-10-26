@@ -1,6 +1,6 @@
 package main.Repository;
 
-import main.IOUtils;
+import main.util.IOUtils;
 import main.Model.Skill;
 
 import java.util.*;
