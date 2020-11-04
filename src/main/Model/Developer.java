@@ -32,8 +32,8 @@ public class Developer {
         return skills;
     }
 
-    public AccountStatus getAccount() {
-        return account.getStatus();
+    public Account getAccount() {
+        return account;
     }
 
     @Override

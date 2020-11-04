@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 public class DeveloperRepository extends IOUtils {
     private String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/resources/developers.txt";
+    private AccountRepository accountRepository = new AccountRepository();
+    private SkillRepository skillRepository = new SkillRepository();
 
-    public Developer getById(Long id) {
+    public Developer        getById(Long id) {
         Developer result = null;
-        SkillRepository skillRepository = new SkillRepository();
-        AccountRepository accountRepository = new AccountRepository();
         Set<Skill> skills = new HashSet<>();
         Account account;
 
@@ -26,8 +26,11 @@ public class DeveloperRepository extends IOUtils {
                 if (Long.parseLong(devRecords[0]) == id) {
                     String[] skillsRecord = devRecords[2].split("-");
                     for (String stringSkillId : skillsRecord) {
-                        Skill skill = skillRepository.getById(Long.valueOf(stringSkillId));
-                        skills.add(skill);
+
+                            Skill skill = skillRepository.getById(Long.valueOf(stringSkillId));
+                            skills.add(skill);
+
+
                     }
                     account = accountRepository.getById(Long.valueOf(devRecords[3]));
 
@@ -40,7 +43,7 @@ public class DeveloperRepository extends IOUtils {
             throw new RuntimeException("Error is occurred in readFromFile " + e.getMessage());
         }
     }
-    public List<Developer> getAll() {
+    public List<Developer>  getAll() {
         List<Developer> developerList = new ArrayList<>();
         try {
             getDevCollection(developerList);
@@ -49,40 +52,16 @@ public class DeveloperRepository extends IOUtils {
         }
         return developerList;
     }
-    public Developer save(Developer developer) {
-        List<Developer> developerList = new ArrayList<>();
-        AccountRepository accountRepository = new AccountRepository();
-        SkillRepository skillRepository = new SkillRepository();
-        Set<Skill> skills = new HashSet<>();
-        Account account = new Account();
+    public Developer        save(Developer developer) {
         try {
-            getDevCollection(developerList);
-            developerList.add(developer);
 
-            String[] devAllRecords = readFromFile(path).split("/");
-            long[] skillsId = new long[developer.getSkills().size()];
-            int index=0;
-            for (String d : devAllRecords) {
-                String[] devRecords = d.split(",");
-                    for (Skill skill : developer.getSkills()) {
-                        skillsId[index] = skill.getId();
-                        index++;
-                    }
-
-                    account = accountRepository.getById(Long.parseLong(devRecords[3])+1);
-
-            }
-
-
-            String sKillsId = Arrays.toString(skillsId);
-            writeToFile(path, idGenerator() + "," + developer.getName() + "," + sKillsId + "," + account.getId() + "/", true);
+            writeToFile(path, idGenerator() + "," + developer.getName() + "," + getSkillsId(developer) + "," + developer.getAccount().getId() + "/\n", true);
         } catch (Exception e) {
             throw new RuntimeException("Error is occurred in save method " + e.getMessage());
         }
         return developer;
     }
-
-    public Developer update(Developer developer) {
+    public Developer        update(Developer developer) {
         List<Developer> developerList = new ArrayList<>();
         try {
             getDevCollection(developerList);
@@ -101,24 +80,23 @@ public class DeveloperRepository extends IOUtils {
         }
         return developer;
     }
-
-    public void deleteById(Long id) {
+    public void             deleteById(Long id) {
         List<Developer> developerList = new ArrayList<>();
         try {
             getDevCollection(developerList);
             developerList.removeIf(developer -> developer.getId() == id);
 
+
             writeToFile(path, "", false);
             for (Developer d : developerList) {
-                writeToFile(path, d.getId() + "," + d.getName() + d.getSkills() + d.getAccount() + "/\n", true);
+
+                writeToFile(path, d.getId() + "," + d.getName() + "," + getSkillsId(d) +","+ d.getAccount().getId() + "/\n", true);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error is occurred in delete method " + e.getMessage());
         }
     }
-
-    private long idGenerator() {
-
+    private long            idGenerator() {
         try {
             String[] devAllRecords = readFromFile(path).split("/");
             return devAllRecords.length + 1;
@@ -126,11 +104,8 @@ public class DeveloperRepository extends IOUtils {
             throw new RuntimeException("Error is occurred in idGenerator method " + e.getMessage());
         }
     }
-
-    private void getDevCollection(List<Developer> developerList) {
+    private void            getDevCollection(List<Developer> developerList) {
         Developer result;
-        SkillRepository skillRepository = new SkillRepository();
-        AccountRepository accountRepository = new AccountRepository();
         Set<Skill> skills = new HashSet<>();
         Account account;
 
@@ -152,6 +127,20 @@ public class DeveloperRepository extends IOUtils {
         } catch (NumberFormatException e) {
             throw new RuntimeException("Error is occurred in getDevCollection method " + e.getMessage());
         }
+    }
+    private StringBuilder   getSkillsId(Developer developer){
+        long[] skillsId = new long[developer.getSkills().size()];
+        int index=0;
+        for (Skill skill:developer.getSkills()){
+            skillsId[index] = skill.getId();
+            index++;
+        }
+        StringBuilder s= new StringBuilder();
+        for (int i = 1; i < skillsId.length; i++) {
+            s.append(skillsId[0]);
+            s.append("-").append(skillsId[i]);
+        }
+        return s;
     }
 
 

@@ -15,17 +15,18 @@ public class Main {
 
     public static void main(String[] args) {
         Set<Skill> skills = new HashSet<>();
-        Skill skill = new Skill(0L,"Java");
-        Skill skill1 = new Skill(1L,"Pascal");
+        Skill skill = new Skill(4L,"Java");
+        Skill skill1 = new Skill(3L,"Pascal");
         skills.add(skill);
         skills.add(skill1);
         DeveloperRepository developerRepository = new DeveloperRepository();
-        Account account = new Account(1L,"dev",AccountStatus.ACTIVE);
+        Account account = new Account(2L,"dev",AccountStatus.ACTIVE);
 
-
-        System.out.println(developerRepository.getById(1L));
+//        System.out.println(developerRepository.getById(1L));
         System.out.println(developerRepository.getAll());
-        System.out.println(developerRepository.save(new Developer(1L,"nick",skills,account)));
+//        System.out.println(developerRepository.save(new Developer(2L,"Bruce",skills,account)));
+        developerRepository.deleteById(1L);
+        System.out.println(developerRepository.getAll());
 
 
 
