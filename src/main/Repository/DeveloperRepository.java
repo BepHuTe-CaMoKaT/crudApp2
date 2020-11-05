@@ -89,8 +89,21 @@ public class DeveloperRepository extends IOUtils {
 
             writeToFile(path, "", false);
             for (Developer d : developerList) {
+                System.out.println(d);
 
-                writeToFile(path, d.getId() + "," + d.getName() + "," + getSkillsId(d) +","+ d.getAccount().getId() + "/\n", true);
+//                long[] skillsId = new long[d.getSkills().size()];
+//                int index=0;
+//                for (Skill skill:d.getSkills()){
+//                    skillsId[index] = skill.getId();
+//                    index++;
+//                }
+//                StringBuilder s= new StringBuilder();
+//                for (int i = 1; i < skillsId.length; i++) {
+//                    s.append(skillsId[0]);
+//                    s.append("-").append(skillsId[i]);
+//                }
+
+//                writeToFile(path, d.getId() + "," + d.getName() + "," + getSkillsId(d) + "," + d.getAccount().getId() + "/\n", true);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error is occurred in delete method " + e.getMessage());
