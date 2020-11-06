@@ -15,6 +15,12 @@ public class Developer {
         this.account = account;
     }
 
+    public Developer(String name, Set<Skill> skills, Account account) {
+        this.name = name;
+        this.skills = skills;
+        this.account = account;
+    }
+
     public Developer() {
 
     }

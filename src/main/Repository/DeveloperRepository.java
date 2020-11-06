@@ -53,7 +53,10 @@ public class DeveloperRepository extends IOUtils {
         return developerList;
     }
     public Developer        save(Developer developer) {
+        List<Developer> developerList = new ArrayList<>();
         try {
+            getDevCollection(developerList);
+            developerList.add(developer);
 
             writeToFile(path, idGenerator() + "," + developer.getName() + "," + getSkillsId(developer) + "," + developer.getAccount().getId() + "/\n", true);
         } catch (Exception e) {
@@ -73,7 +76,7 @@ public class DeveloperRepository extends IOUtils {
 
             writeToFile(path, "", false);
             for (Developer d : developerList1) {
-                writeToFile(path, d.getId() + "," + d.getName() + d.getSkills() + d.getAccount() + "/\n", true);
+                writeToFile(path, d.getId() + "," + d.getName() + "," + getSkillsId(d) + "," + d.getAccount().getId() + "/\n", true);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error is occurred in update method " + e.getMessage());
@@ -86,24 +89,9 @@ public class DeveloperRepository extends IOUtils {
             getDevCollection(developerList);
             developerList.removeIf(developer -> developer.getId() == id);
 
-
             writeToFile(path, "", false);
             for (Developer d : developerList) {
-                System.out.println(d);
-
-//                long[] skillsId = new long[d.getSkills().size()];
-//                int index=0;
-//                for (Skill skill:d.getSkills()){
-//                    skillsId[index] = skill.getId();
-//                    index++;
-//                }
-//                StringBuilder s= new StringBuilder();
-//                for (int i = 1; i < skillsId.length; i++) {
-//                    s.append(skillsId[0]);
-//                    s.append("-").append(skillsId[i]);
-//                }
-
-//                writeToFile(path, d.getId() + "," + d.getName() + "," + getSkillsId(d) + "," + d.getAccount().getId() + "/\n", true);
+                writeToFile(path, d.getId() + "," + d.getName() + "," + getSkillsId(d) + "," + d.getAccount().getId() + "/\n", true);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error is occurred in delete method " + e.getMessage());
@@ -119,12 +107,12 @@ public class DeveloperRepository extends IOUtils {
     }
     private void            getDevCollection(List<Developer> developerList) {
         Developer result;
-        Set<Skill> skills = new HashSet<>();
         Account account;
-
         try {
+
             String[] devAllRecords = readFromFile(path).split("/");
             for (String d : devAllRecords) {
+                Set<Skill> skills = new HashSet<>();
                 String[] devRecords = d.split(",");
 
                 String[] skillsRecord = devRecords[2].split("-");

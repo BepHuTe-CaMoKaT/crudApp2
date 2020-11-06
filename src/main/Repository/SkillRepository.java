@@ -85,7 +85,6 @@ public class SkillRepository extends IOUtils{
         }
     }
     private long       idGenerator() {
-
         try {
             String[] skillsAllRecords = readFromFile(path).split("/");
             return skillsAllRecords.length + 1;

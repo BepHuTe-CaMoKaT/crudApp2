@@ -4,6 +4,7 @@ import main.Model.Account;
 import main.Model.AccountStatus;
 import main.Model.Developer;
 import main.Model.Skill;
+import main.Repository.AccountRepository;
 import main.Repository.DeveloperRepository;
 import main.Repository.SkillRepository;
 
@@ -20,12 +21,20 @@ public class Main {
         skills.add(skill);
         skills.add(skill1);
         DeveloperRepository developerRepository = new DeveloperRepository();
-        Account account = new Account(2L,"dev",AccountStatus.ACTIVE);
+        AccountRepository accountRepository = new AccountRepository();
+        Account account = new Account(2L,"developer",AccountStatus.ACTIVE);
+//        System.out.println(accountRepository.save(account));
+//        System.out.println(accountRepository.getAll());
+//        System.out.println(accountRepository.update(account));
+//        System.out.println(accountRepository.getAll());
+
 
 //        System.out.println(developerRepository.getById(1L));
         System.out.println(developerRepository.getAll());
-//        System.out.println(developerRepository.save(new Developer(2L,"Bruce",skills,account)));
-        developerRepository.deleteById(1L);
+//        System.out.println(developerRepository.save(new Developer("Bruce",skills,account)));
+//        developerRepository.deleteById(3L);
+        Developer developer = new Developer(1L,"Nick",skills,account);
+        System.out.println(developerRepository.update(developer));
         System.out.println(developerRepository.getAll());
 
 
