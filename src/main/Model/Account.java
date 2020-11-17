@@ -11,6 +11,11 @@ public class Account {
         this.status = status;
     }
 
+    public Account(String devName, AccountStatus status) {
+        this.devName = devName;
+        this.status = status;
+    }
+
     public Account() {
 
     }
