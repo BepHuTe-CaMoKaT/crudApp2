@@ -1,19 +1,20 @@
-package main.Repository;
+package com.crudApp.repository.io;
 
-import main.util.IOUtils;
-import main.Model.Account;
-import main.Model.AccountStatus;
 
+import com.crudApp.model.Account;
+import com.crudApp.model.AccountStatus;
+import com.crudApp.repository.AccountRepository;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import static com.crudApp.util.IOUtils.*;
 
-public class AccountRepository extends IOUtils {
+public class JavaIOAccountRepositoryImpl implements AccountRepository {
 
-    private String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/resources/accounts.txt";
+    private String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/java/com/crudApp/resources/accounts.txt";
 
-    public Account       getById(Long id) {
+    public Account getById(Long id) {
         try {
             String[] accountAllRecords = readFromFile(path).split("/");
             for (String s : accountAllRecords) {
@@ -47,7 +48,7 @@ public class AccountRepository extends IOUtils {
         }
         return account;
     }
-    public void          deleteById(long id){
+    public void          deleteById(Long id){
         List<Account> accountList = new ArrayList<>();
 
         try {

@@ -1,20 +1,23 @@
-package main.Repository;
+package com.crudApp.repository.io;
 
-import main.util.IOUtils;
-import main.Model.Account;
-import main.Model.Developer;
-import main.Model.Skill;
+import com.crudApp.model.Account;
+import com.crudApp.model.Developer;
+import com.crudApp.model.Skill;
+import com.crudApp.repository.DeveloperRepository;
+import com.crudApp.util.IOUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.crudApp.util.IOUtils.*;
 
-public class DeveloperRepository extends IOUtils {
-    private String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/resources/developers.txt";
-    private AccountRepository accountRepository = new AccountRepository();
-    private SkillRepository skillRepository = new SkillRepository();
 
-    public Developer        getById(Long id) {
+public class JavaIODeveloperRepositoryImpl implements DeveloperRepository {
+    private String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/java/com/crudApp/resources/developers.txt";
+    private JavaIOAccountRepositoryImpl javaIOAccountRepositoryImpl = new JavaIOAccountRepositoryImpl();
+    private JavaIOSkillRepositoryImpl javaIOSkillRepositoryImpl = new JavaIOSkillRepositoryImpl();
+
+    public Developer getById(Long id) {
         Developer result = null;
         Set<Skill> skills = new HashSet<>();
         Account account;
@@ -27,12 +30,12 @@ public class DeveloperRepository extends IOUtils {
                     String[] skillsRecord = devRecords[2].split("-");
                     for (String stringSkillId : skillsRecord) {
 
-                            Skill skill = skillRepository.getById(Long.valueOf(stringSkillId));
+                            Skill skill = javaIOSkillRepositoryImpl.getById(Long.valueOf(stringSkillId));
                             skills.add(skill);
 
 
                     }
-                    account = accountRepository.getById(Long.valueOf(devRecords[3]));
+                    account = javaIOAccountRepositoryImpl.getById(Long.valueOf(devRecords[3]));
 
                     result = new Developer(Long.parseLong(devRecords[0]), devRecords[1], skills, account);
 
@@ -117,10 +120,10 @@ public class DeveloperRepository extends IOUtils {
 
                 String[] skillsRecord = devRecords[2].split("-");
                 for (String stringSkillId : skillsRecord) {
-                    Skill skill = skillRepository.getById(Long.valueOf(stringSkillId));
+                    Skill skill = javaIOSkillRepositoryImpl.getById(Long.valueOf(stringSkillId));
                     skills.add(skill);
                 }
-                account = accountRepository.getById(Long.valueOf(devRecords[3]));
+                account = javaIOAccountRepositoryImpl.getById(Long.valueOf(devRecords[3]));
 
                 result = new Developer(Long.parseLong(devRecords[0]), devRecords[1], skills, account);
                 developerList.add(result);

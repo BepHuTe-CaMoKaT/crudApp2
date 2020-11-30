@@ -1,15 +1,18 @@
-package main.Model;
+    package com.crudApp.model;
 
 public class Skill {
-    private long id;
+    private Long id;
     private String name;
 
-    public Skill(long parseLong, String s) {
+    public Skill(Long parseLong, String s) {
         this.id=parseLong;
         this.name=s;
     }
 
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Skill(String name) {
         this.name = name;

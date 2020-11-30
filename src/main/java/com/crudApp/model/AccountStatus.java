@@ -1,4 +1,4 @@
-package main.Model;
+package com.crudApp.model;
 
 public enum AccountStatus {
     ACTIVE,

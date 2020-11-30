@@ -1,4 +1,4 @@
-package main.Model;
+package com.crudApp.model;
 
 import java.util.Set;
 

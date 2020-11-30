@@ -1,16 +1,19 @@
-package main.Repository;
+package com.crudApp.repository.io;
 
-import main.util.IOUtils;
-import main.Model.Skill;
+import com.crudApp.model.Skill;
+import com.crudApp.repository.SkillRepository;
+import com.crudApp.util.IOUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SkillRepository extends IOUtils{
+import static com.crudApp.util.IOUtils.*;
 
-    private String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/resources/skills.txt";
+public class JavaIOSkillRepositoryImpl implements SkillRepository {
 
-    public Skill       getById(Long id) {
+    private String path = "C:/Users/Никита/IdeaProjects/crudApp1/src/main/java/com/crudApp/resources/skills.txt";
+
+    public Skill getById(Long id) {
         try {
             String[] skillsAllRecords = readFromFile(path).split("/");
             for (String s : skillsAllRecords) {
