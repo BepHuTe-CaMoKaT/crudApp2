@@ -98,7 +98,7 @@ public class JavaIOAccountRepositoryImpl implements AccountRepository {
                 accountList.add(new Account(Long.parseLong(accountsRecords[0]),accountsRecords[1],AccountStatus.valueOf(accountsRecords[2])));
             }
         }catch (NumberFormatException e){
-            throw new RuntimeException("Error is occured in getAccountCollection " + e.getMessage());
+            throw new RuntimeException("Error is occurred in getAccountCollection " + e.getMessage());
         }
     }
 }

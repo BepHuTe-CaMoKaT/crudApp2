@@ -6,19 +6,26 @@ public class CommonView {
     private AccountView accountView = new AccountView();
     private SkillView skillView = new SkillView();
     private DeveloperView developerView = new DeveloperView();
+    private static final String text = "Select item: \n1) Developer menu \n2) Skill menu \n3) Account menu";
 
     public void run(){
-        System.out.println("Select item: ");
         Scanner in = new Scanner(System.in);
-        int choice = in.nextInt();
-        switch (choice){
-            case 1:
-                developerView.showDeveloperMenu();
-            case 2:
-                skillView.showSkillMenu();
-            case 3:
-                accountView.showAccountMenu();
+        int choice;
+        do {
+            System.out.println(text);
+            switch (choice = in.nextInt()){
+                case 1:
+                    developerView.showDeveloperMenu();
+                    break;
+                case 2:
+                    skillView.showSkillMenu();
+                    break;
+                case 3:
+                    accountView.showAccountMenu();
+                    break;
 
-        }
+            }
+        }while (choice!=4);
+
     }
 }

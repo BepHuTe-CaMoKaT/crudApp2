@@ -36,6 +36,10 @@ public class Account {
         this.status = status;
     }
 
+    public void setDevName(String devName) {
+        this.devName = devName;
+    }
+
     @Override
     public String toString() {
         return "{" +
