@@ -16,7 +16,7 @@ public class AccountView {
     private static final String text3 = "Select item: \n1) Change name \n2) Change status \n3) Exit";
     private static final String text4 = "Enter account's status: \n1) Active \n2) Banned \n3) Deleted";
 
-    private AccountStatus chooseAccountStatus(int choice) {
+    protected AccountStatus chooseAccountStatus(int choice) {
         AccountStatus status;
         switch (choice) {
             case 1:

@@ -42,6 +42,18 @@ public class Developer {
         return account;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     @Override
     public String toString() {
         return "Developer{" +

@@ -140,8 +140,8 @@ public class JavaIODeveloperRepositoryImpl implements DeveloperRepository {
             index++;
         }
         StringBuilder s= new StringBuilder();
+        s.append(skillsId[0]);
         for (int i = 1; i < skillsId.length; i++) {
-            s.append(skillsId[0]);
             s.append("-").append(skillsId[i]);
         }
         return s;
